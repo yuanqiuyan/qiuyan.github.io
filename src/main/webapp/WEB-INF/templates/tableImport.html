@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>导入表格</title>
+</head>
+<body style="text-align: center;">
+<!-- 将文件选择框隐藏 -->
+<input type="file" id="file" onchange="getFile()" style="display: none;" accept=".xls,.xlsx" />
+<button id="btn">获取本地excel数据</button>
+<div style="width: 100%;text-align: center;margin-top: 10px;"
+     id="tableContainer">
+</div>
+</body>
+<script th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/static/js/export.js}" type="text/javascript" charset="utf-8"></script>
+<!-- use the latest version -->
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<script type="text/javascript">
+    //读取本地文件
+    function readWorkbookFromLocalFile(file, callback) {
+        var reader = new FileReader();
+        reader.readAsBinaryString(file);
+        reader.onload = function(e) {
+            var data = e.target.result;
+            var workbook = XLSX.read(data, {
+                type: 'binary'
+            });
+            if (callback) callback(workbook);
+        };
+    }
+
+    function getFile() {
+        let files = $('#file').prop('files');
+        if (files) {
+            readWorkbookFromLocalFile(files[0], (workbook) => {
+                createTables(workbook.Sheets)
+            });
+        }
+    }
+    //将sheets转换为表格
+    function createTables(sheets) {
+        let div = $("<div></div>")
+        //遍历每一张sheet表格
+        for (let i in sheets) {
+            //转换HTML是一个数组对象，分为三部分:meta,title,table
+            let table = $(XLSX.utils.sheet_to_html(sheets[i]))[2];
+            let $table = $(table)
+            $table.attr("width","80%")
+            $table.attr("border","1")
+            $table.attr("align","center")
+            $table.css({
+                "margin":"5%"
+            })
+            $("#tableContainer").append($table)
+        }
+    }
+    $(function() {
+        $("#btn").click(() => {
+            //手动触发文本输入框
+            $("#file").trigger("click");
+        })
+    })
+</script>
+
+</html>

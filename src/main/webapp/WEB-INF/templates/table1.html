@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>导出Excel</title>
+</head>
+<body style="text-align: center;">
+<button type="button" style="text-align: center;margin: 10px;">导出excel</button>
+<table width="50%" align="center" border="1" id="myTable">
+    <thead>
+    <tr>
+        <td><input type="checkbox" class="all-checkbox export-remove"/></td>
+        <th>姓名</th>
+        <th>年龄</th>
+        <th>手机号</th>
+    </tr>
+    </thead>
+    <tbody align="center" >
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小张</td>
+        <td>18</td>
+        <td>19849383784</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小张</td>
+        <td>16</td>
+        <td>19843333378</td>
+    </tr>
+    <tr style="display: none;">
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小李</td>
+        <td>20</td>
+        <td>1323439443</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小吴</td>
+        <td>18</td>
+        <td>12349484854</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小赵</td>
+        <td>20</td>
+        <td>13234349483</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小王</td>
+        <td>17</td>
+        <td>15728393843</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小倩</td>
+        <td>18</td>
+        <td>11242383784</td>
+    </tr>
+    <tr>
+        <td><input type="checkbox" class="checkbox export-remove"/></td>
+        <td>小兰</td>
+        <td>20</td>
+        <td>13984859483</td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+<script th:src="@{/static/js/jquery-3.6.0.min.js}" type="text/javascript" charset="utf-8"></script>
+<script th:src="@{/static/js/export.js}" type="text/javascript" charset="utf-8"></script>
+<!-- use the latest version -->
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+<!--<script th:src="@{/static/js/xlsx.full.min.js}" type="text/javascript" charset="utf-8"></script>--><!-- 用这个没反应-->
+<script>
+    //表格转Excel文件
+    function tableToExcel(tableDOM,filename) {
+        let tableSheet = XLSX.utils.table_to_sheet(tableDOM);
+        openDownloadDialog(sheet2blob(tableSheet),filename+'.xlsx');
+    }
+    $("button").click(() => {
+        let sheetTable = $("<table></table>");
+        //拷贝一份到需要打印的表格,直接写等于剪切,所以加clone()
+        sheetTable.append($("#myTable").find("thead").clone());
+        sheetTable.append($("<tbody></tbody>"));
+        let tbody = sheetTable.find("tbody");
+        let checkboxs = $(".checkbox:checked");
+        for (let checkbox of checkboxs) {
+            //获取选中行
+            let tr = $(checkbox).parents('tr')[0];
+            //拷贝一份到需要打印的表格
+            tbody.append($(tr).clone());
+        }
+        sheetTable.find(".export-remove").parent().remove();
+        //文件名字可自定义
+        tableToExcel(sheetTable[0],"测试");
+    })
+    $(".all-checkbox").change(()=>{
+        $(".checkbox").prop("checked",$(".all-checkbox").prop("checked"));
+    })
+</script>
+<!-- 原生写法 -->
+<!-- 	<script>
+		// 导出按钮添加点击事件
+		document.getElementsByTagName("button")[0].onclick = () => {
+			let tableDom = createTableDOM(document.getElementById("myTable"), ['姓名', '年龄','手机号']);
+			tableToExcel(tableDom, "测试");
+		};
+
+		let allCheckboxDom = document.querySelector(".all-checkbox");
+		// 设置全选或全不选
+		allCheckboxDom.onclick = () => {
+			// 获取选中状态
+			let checked = allCheckboxDom.checked;
+			// 获取所有需要全选输入框
+			let checkboxDoms = document.querySelectorAll(".checkbox");
+			for (let checkboxDom of checkboxDoms) {
+				checkboxDom.checked = checked;
+			}
+		}
+
+		function tableToExcel(tableDOM, filename) {
+			let tableSheet = XLSX.utils.table_to_sheet(tableDOM);
+			openDownloadDialog(sheet2blob(tableSheet), filename + '.xlsx');
+		}
+
+		/**
+		 * @param {Object} dom 表格dom结点
+		 * @param {array} exportColums 导出列数组
+		 */
+		function createTableDOM(dom, exportColums) {
+			let columIndexs = [];
+			// 查询导出列下标
+			let thDom = dom.getElementsByTagName("th");
+			for (let i = 0; i < thDom.length; i++) {
+				if (exportColums.indexOf(thDom[i].innerText) >= 0) {
+					columIndexs.push(i)
+				}
+			}
+			// 创建一个导出的表格
+			let tableDom = document.createElement("table");
+			// 创建导出表头
+			let theadDom = document.createElement("thead");
+			let thrDom = document.createElement("tr");
+			// 创建导出列
+			for (let colum of exportColums) {
+				let colDom = document.createElement("td");
+				colDom.innerText = colum
+				thrDom.appendChild(colDom)
+			}
+
+			// 添加表头结点
+			theadDom.appendChild(thrDom);
+			tableDom.appendChild(theadDom);
+			// 创建导出表体
+			let tbodyDom = document.createElement("tbody");
+			// 获取表格数据
+			let trDataDoms = dom.getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+			for (let trDataDom of trDataDoms) {
+				// 获取输入框结点
+				let inputDom = trDataDom.getElementsByTagName("input")[0];
+				// 获取选中行
+				if (inputDom.checked) {
+					// 创建导出行结点
+					let trDom = document.createElement("tr");
+					let tdDataDoms = trDataDom.getElementsByTagName("td");
+					// 筛选导出列
+					for (let i = 0; i < tdDataDoms.length; i++) {
+						if (columIndexs.indexOf(i) >= 0) {
+							// 创建导出列结点
+							let tdDom = document.createElement("td");
+							tdDom.innerText = tdDataDoms[i].innerText;
+							trDom.appendChild(tdDom);
+						}
+					}
+					tbodyDom.appendChild(trDom);
+				}
+			}
+			tableDom.appendChild(tbodyDom);
+			return tableDom
+		}
+	</script> -->
+</html>

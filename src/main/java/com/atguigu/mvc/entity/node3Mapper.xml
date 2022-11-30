@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.atguigu.mvc.mapper.node3Mapper">
+  <resultMap id="BaseResultMap" type="com.atguigu.mvc.pojo.node3">
+    <id column="s_serial_num" jdbcType="VARCHAR" property="sSerialNum" />
+    <result column="sensor_id" jdbcType="VARCHAR" property="sensorId" />
+    <result column="sensor_addr" jdbcType="VARCHAR" property="sensorAddr" />
+    <result column="sensor_port" jdbcType="VARCHAR" property="sensorPort" />
+    <result column="sensor_status" jdbcType="VARCHAR" property="sensorStatus" />
+    <result column="sensor_name" jdbcType="VARCHAR" property="sensorName" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="sensor_remark" jdbcType="VARCHAR" property="sensorRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_serial_num, sensor_id, sensor_addr, sensor_port, sensor_status, sensor_name, type_code, 
+    sensor_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2 (s_serial_num, sensor_id, sensor_addr, 
+      sensor_port, sensor_status, sensor_name, 
+      type_code, sensor_remark)
+    values (#{sSerialNum,jdbcType=VARCHAR}, #{sensorId,jdbcType=VARCHAR}, #{sensorAddr,jdbcType=VARCHAR}, 
+      #{sensorPort,jdbcType=VARCHAR}, #{sensorStatus,jdbcType=VARCHAR}, #{sensorName,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=VARCHAR}, #{sensorRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        s_serial_num,
+      </if>
+      <if test="sensorId != null">
+        sensor_id,
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr,
+      </if>
+      <if test="sensorPort != null">
+        sensor_port,
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status,
+      </if>
+      <if test="sensorName != null">
+        sensor_name,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        #{sSerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null">
+        #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    <set>
+      <if test="sensorId != null">
+        sensor_id = #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        sensor_name = #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark = #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    set sensor_id = #{sensorId,jdbcType=VARCHAR},
+      sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      sensor_name = #{sensorName,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      sensor_remark = #{sensorRemark,jdbcType=VARCHAR}
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.atguigu.mvc.pojo.node3">
+    <id column="s_serial_num" jdbcType="VARCHAR" property="sSerialNum" />
+    <result column="sensor_id" jdbcType="VARCHAR" property="sensorId" />
+    <result column="sensor_addr" jdbcType="VARCHAR" property="sensorAddr" />
+    <result column="sensor_port" jdbcType="VARCHAR" property="sensorPort" />
+    <result column="sensor_status" jdbcType="VARCHAR" property="sensorStatus" />
+    <result column="sensor_name" jdbcType="VARCHAR" property="sensorName" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="sensor_remark" jdbcType="VARCHAR" property="sensorRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_serial_num, sensor_id, sensor_addr, sensor_port, sensor_status, sensor_name, type_code, 
+    sensor_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2 (s_serial_num, sensor_id, sensor_addr, 
+      sensor_port, sensor_status, sensor_name, 
+      type_code, sensor_remark)
+    values (#{sSerialNum,jdbcType=VARCHAR}, #{sensorId,jdbcType=VARCHAR}, #{sensorAddr,jdbcType=VARCHAR}, 
+      #{sensorPort,jdbcType=VARCHAR}, #{sensorStatus,jdbcType=VARCHAR}, #{sensorName,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=VARCHAR}, #{sensorRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        s_serial_num,
+      </if>
+      <if test="sensorId != null">
+        sensor_id,
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr,
+      </if>
+      <if test="sensorPort != null">
+        sensor_port,
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status,
+      </if>
+      <if test="sensorName != null">
+        sensor_name,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        #{sSerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null">
+        #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    <set>
+      <if test="sensorId != null">
+        sensor_id = #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        sensor_name = #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark = #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    set sensor_id = #{sensorId,jdbcType=VARCHAR},
+      sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      sensor_name = #{sensorName,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      sensor_remark = #{sensorRemark,jdbcType=VARCHAR}
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+  <resultMap id="BaseResultMap" type="com.atguigu.mvc.pojo.node3">
+    <id column="s_serial_num" jdbcType="VARCHAR" property="sSerialNum" />
+    <result column="sensor_id" jdbcType="VARCHAR" property="sensorId" />
+    <result column="sensor_addr" jdbcType="VARCHAR" property="sensorAddr" />
+    <result column="sensor_port" jdbcType="VARCHAR" property="sensorPort" />
+    <result column="sensor_status" jdbcType="VARCHAR" property="sensorStatus" />
+    <result column="sensor_name" jdbcType="VARCHAR" property="sensorName" />
+    <result column="type_code" jdbcType="VARCHAR" property="typeCode" />
+    <result column="sensor_remark" jdbcType="VARCHAR" property="sensorRemark" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_serial_num, sensor_id, sensor_addr, sensor_port, sensor_status, sensor_name, type_code, 
+    sensor_remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from sensor_node2
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2 (s_serial_num, sensor_id, sensor_addr, 
+      sensor_port, sensor_status, sensor_name, 
+      type_code, sensor_remark)
+    values (#{sSerialNum,jdbcType=VARCHAR}, #{sensorId,jdbcType=VARCHAR}, #{sensorAddr,jdbcType=VARCHAR}, 
+      #{sensorPort,jdbcType=VARCHAR}, #{sensorStatus,jdbcType=VARCHAR}, #{sensorName,jdbcType=VARCHAR}, 
+      #{typeCode,jdbcType=VARCHAR}, #{sensorRemark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mvc.pojo.node3">
+    insert into sensor_node2
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        s_serial_num,
+      </if>
+      <if test="sensorId != null">
+        sensor_id,
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr,
+      </if>
+      <if test="sensorPort != null">
+        sensor_port,
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status,
+      </if>
+      <if test="sensorName != null">
+        sensor_name,
+      </if>
+      <if test="typeCode != null">
+        type_code,
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sSerialNum != null">
+        #{sSerialNum,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorId != null">
+        #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    <set>
+      <if test="sensorId != null">
+        sensor_id = #{sensorId,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorAddr != null">
+        sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorPort != null">
+        sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorStatus != null">
+        sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorName != null">
+        sensor_name = #{sensorName,jdbcType=VARCHAR},
+      </if>
+      <if test="typeCode != null">
+        type_code = #{typeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="sensorRemark != null">
+        sensor_remark = #{sensorRemark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.atguigu.mvc.pojo.node3">
+    update sensor_node2
+    set sensor_id = #{sensorId,jdbcType=VARCHAR},
+      sensor_addr = #{sensorAddr,jdbcType=VARCHAR},
+      sensor_port = #{sensorPort,jdbcType=VARCHAR},
+      sensor_status = #{sensorStatus,jdbcType=VARCHAR},
+      sensor_name = #{sensorName,jdbcType=VARCHAR},
+      type_code = #{typeCode,jdbcType=VARCHAR},
+      sensor_remark = #{sensorRemark,jdbcType=VARCHAR}
+    where s_serial_num = #{sSerialNum,jdbcType=VARCHAR}
+  </update>
+</mapper>
